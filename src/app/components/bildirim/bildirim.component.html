@@ -1,0 +1,93 @@
+<div class="container mt-5">
+    <div class="col-md-12">
+      <h4 style="color: red;">Kullanıcı Arayüzü</h4><br>
+      <div class="nav nav-pills nav-fill" style="background-color: black;">
+        <li class="nav-item"><a href="/kullanıcıanasayfa" class="nav-link active">Anasayfa</a></li>
+        <li class="nav-item"><a href="/bildirim" class="nav-link">Bildirimler</a></li>
+        <li class="nav-item"><a href="/hoşgeldin" class="nav-link">Sınava Giriş</a></li>
+        <li class="nav-item"><a href="/" class="nav-link">Çıkış</a></li>
+      </div>
+    </div>
+    <br><br><br>
+
+    <div class="row alert alert-danger" *ngIf="silme">
+        <div class="col-md-12">
+            <p><b>{{secBildirim.isim}}</b> İsimli Öğrencinin mesajı silinecektir. Onaylıyor Musunuz?</p>
+            <button class="btn btn-outline-danger btn-sm " (click)="Sil()">Evet Sil</button>
+            <button class="btn btn-outline-primary btn-sm ml-2 " (click)="silme=false;">Hayır Kapat</button>
+        </div>
+    </div>
+    <div class="row alert alert-secondary" *ngIf="detay">
+        <div class="col-md-6">
+            <h5>Ad - Soyad</h5>
+            <p>{{secBildirim.isim}}</p>
+            <h5>Mesaj</h5>
+            <p>{{secBildirim.mesaj}}</p>
+        </div>
+        <div class="col-md-6">
+            <h5>Mesajın Gönderilme Tarihi</h5>
+            <p>{{secBildirim.kayTarih | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+            <h5>Bidirimin Durumu</h5>
+            <p>
+                <span class="badge badge-pill bg-success text-white"  *ngIf="secBildirim.islem">Okundu</span>
+                <span class="badge badge-pill bg-danger text-white" *ngIf="!secBildirim.islem">Bekliyor</span>
+            </p>
+            <button class="btn btn-outline-danger btn-sm " (click)="detay=false;">Kapat</button>
+        </div>
+    </div>
+    <!-- <div class="row" *ngIf="ekleduzenle">
+        <div class="col-md-12 alert alert-info">
+            <h4>Öğrenci Mesajı Ekle - Düzenle</h4>
+            <form #frm="ngForm" (submit)="Kaydet()">
+                <div class="form-group">
+                    <label>Mesaj</label>
+                    <input type="text" class="form-control" name="baslik" [(ngModel)]="secBildirim.isim">
+                </div>
+                <div class="form-group">
+                    <label>Öğrenci Adı</label>
+                    <textarea  class="form-control" name="baslik" [(ngModel)]="secBildirim.mesaj"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Kaydet" class="btn btn-outline-success btn-sm">
+                    <button class="btn btn-outline-danger btn-sm ml-2" (click)="ekleduzenle=false;">Kapat</button>
+                </div>
+            </form>
+            <div [ngClass]="sonuc.islem ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc.mesaj">{{sonuc.mesaj.length>0}}</div>
+        </div>
+    </div> -->
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Gelen Bildirimler</h4>
+        <!-- <button class="btn btn-outline-info btn-sm" (click)="ekleduzenle=true;">Bildirim Ekle</button> -->
+        <table class="table mt-2">
+            <thead style="color: rgb(0, 110, 255);">
+                <td>Öğrenci Adı</td>
+                <td>Bildirimin Durumu</td>
+                <td>İşlem</td>
+                <td>Detay</td>
+                <!-- <td>Düzenle</td> -->
+                <td>Sil</td>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bildirim of bildirimler">
+                    <td>{{bildirim.isim}}</td>
+                    <td>
+                        <span class="badge badge-pill bg-success text-white" *ngIf="bildirim.islem">Okundu</span>
+                        <span class="badge badge-pill bg-danger text-white" *ngIf="!bildirim.islem">Bekliyor</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-success btn-sm" (click)="TamamlaIptal(bildirim,true)"  *ngIf="!bildirim.islem">Mesajı Okudum</button>
+                        <button class="btn btn-outline-danger btn-sm" (click)="TamamlaIptal(bildirim,false)" *ngIf="bildirim.islem">Mesaj Bekliyor</button>
+
+                    </td>
+                    <td><button class="btn btn-outline-info btn-sm" (click)="BildirimSec(bildirim);detay=true;" >Detay</button></td>
+                    <!-- <td><button class="btn btn-outline-warning btn-sm" (click)="BildirimSec(bildirim);ekleduzenle=true;">Düzenle</button></td> -->
+                    <td><button class="btn btn-outline-danger btn-sm" (click)="BildirimSec(bildirim);silme=true;">Sil</button></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>

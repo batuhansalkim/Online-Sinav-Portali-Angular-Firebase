@@ -1,0 +1,56 @@
+ <!-- <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            Merhaba <b>{{adsoyad}}</b>,
+            <button class="btn btn-outline-danger" style="float:right;" (click)="OturumKapat()" *ngIf="fbServis.OturumKontrol()">Oturumu Kapat</button>
+            <br>
+            <button class="btn btn-outline-primary" style="text-align: center;" [routerLink]="['/login']">Üye Giriş Sayfasına Git</button>
+            <button class="btn btn-outline-danger" [routerLink]="['/adminlogin']">Admin Giriş Sayfasına Git</button>
+        </div>
+    </div>
+</div>  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Olundu</title>
+    <style>
+        body{
+            background:rgb(204, 116, 1);
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            height: 100vh;
+            width: 100vw;
+        }
+        h1{
+            font-family: sans-serif;
+            font-size: 2em;
+        }
+        div{
+            display: inline-block;
+            background:#ff7675 ;
+            color: #ecf0f1;
+            padding: 20px;
+            height: 500px;
+            width: 500px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Başarıyla Kayıt Oldunuz</h1>
+        <h2>Giriş Yapabilirsiniz.</h2>
+        <button class="btn btn-outline-danger" style="float:right; background-color: gold;" (click)="OturumKapat()" *ngIf="fbServis.OturumKontrol()">Oturumu Kapat</button>
+        <br>
+        <button class="btn btn-outline-primary" style="text-align: center; background-color: springgreen; " [routerLink]="['/']">Üye Giriş Sayfasına Git</button><br><br><br><br>
+        <button class="btn btn-outline-danger" style="background-color: rgb(0, 0, 0);" [routerLink]="['/adminlogin']">Admin Giriş Sayfasına Git</button>
+        
+    </div>
+    
+</body>
+</html>

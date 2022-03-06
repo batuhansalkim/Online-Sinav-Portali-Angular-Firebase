@@ -1,0 +1,109 @@
+<div class="container mt-5">
+    <div class="col-md-12">
+      
+      <div class="nav nav-pills nav-fill" style="background-color: rgb(0, 150, 105); ">
+        <li class="nav-item"><a style="color: white;" href="/adminanasayfa" class="nav-link active">Anasayfa</a></li>
+        <li class="nav-item"><a style="color: white;" href="/dersialanögrenciler" class="nav-link">Dersi Alanlar</a></li>
+        <li class="nav-item"><a style="color: white;" href="/soruhazirla" class="nav-link">Sınav Hazırla</a></li>
+        <li class="nav-item"><a style="color: white;" href="/" class="nav-link">Çıkış</a></li>
+      </div>
+    </div>
+    <br><br>
+
+    <div class="row alert alert-danger" *ngIf="silme">
+        <div class="col-md-12">
+            <p><b>{{secDers.aciklama}}</b> İsimli Öğrenci kaydı silinecektir. Onaylıyor Musunuz?</p>
+            <button class="btn btn-outline-danger btn-sm " (click)="Sil()">Evet Sil</button>
+            <button class="btn btn-outline-primary btn-sm ml-2 " (click)="silme=false;">Hayır Kapat</button>
+        </div>
+    </div>
+    <div class="row alert alert-secondary" *ngIf="detay">
+        <div class="col-md-6">
+            <h5>Ad - Soyad</h5>
+            <p>{{secDers.baslik}}</p>
+            <h5>Ders Adı</h5>
+            <p>{{secDers.aciklama}}</p>
+            <h5>Vize Notu</h5>
+            <p>{{secDers.vize}}</p>
+            <h5>Final Notu</h5>
+            <p>{{secDers.final}}</p>
+        </div>
+        <div class="col-md-6">
+            <h5>Kayıt Tarihi</h5>
+            <p>{{secDers.kayTarih | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+            <h5>Düzenleme Tarihi</h5>
+            <p>{{secDers.duzTarih | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+
+            <h5>Sınavların Durumu</h5>
+            <p>
+                <span class="badge badge-pill bg-success text-white"  *ngIf="secDers.islem">Tamamlandı</span>
+                <span class="badge badge-pill bg-danger text-white" *ngIf="!secDers.islem">Bekliyor</span>
+            </p>
+            <button class="btn btn-outline-danger btn-sm " (click)="detay=false;">Kapat</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="ekleduzenle">
+        <div class="col-md-12 alert alert-info">
+            <h4>Öğrenci Kaydı Ekle - Düzenle</h4>
+            <form #frm="ngForm" (submit)="Kaydet()">
+                <div class="form-group">
+                    <label>Ders Adı</label>
+                    <input type="text" class="form-control" name="baslik" [(ngModel)]="secDers.baslik">
+                </div>
+                <div class="form-group">
+                    <label>Öğrenci Adı</label>
+                    <textarea  class="form-control" name="baslik" [(ngModel)]="secDers.aciklama"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Vize Notu</label>
+                    <textarea  class="form-control" name="vize" [(ngModel)]="secDers.vize"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Final Notu</label>
+                    <textarea  class="form-control" name="final" [(ngModel)]="secDers.final"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Kaydet" class="btn btn-outline-success btn-sm">
+                    <button class="btn btn-outline-danger btn-sm ml-2" (click)="ekleduzenle=false;">Kapat</button>
+                </div>
+            </form>
+            <div [ngClass]="sonuc.islem ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc.mesaj">{{sonuc.mesaj.length>0}}</div>
+        </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4 style="color: slateblue;">Dersi Alan Öğrenciler</h4><br>
+        <button class="btn btn-outline-info btn-sm" (click)="ekleduzenle=true;">Öğrenci Kaydı Ekle</button>
+        
+        <table class="table mt-2">
+            <thead>
+                <td style="color: rgb(76, 0, 255);">Öğrenci Adı</td>
+                <td style="color: rgb(76, 0, 255);">Sınavların Durumu</td>
+                <td style="color: rgb(76, 0, 255);">İşlem</td>
+                <td style="color: rgb(76, 0, 255);">Detay</td>
+                <td style="color: rgb(76, 0, 255);">Düzenle</td>
+                <td style="color: rgb(76, 0, 255);">Sil</td>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ders of dersler">
+                    <td>{{ders.aciklama}}</td>
+                    <td>
+                        <span class="badge badge-pill bg-success text-white" *ngIf="ders.islem">Tamamlandı</span>
+                        <span class="badge badge-pill bg-danger text-white" *ngIf="!ders.islem">Bekliyor</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-success btn-sm" (click)="TamamlaIptal(ders,true)"  *ngIf="!ders.islem">Tamamlandı Yap</button>
+                        <button class="btn btn-outline-danger btn-sm" (click)="TamamlaIptal(ders,false)" *ngIf="ders.islem">Tamamlandı İptal Et</button>
+
+                    </td>
+                    <td><button class="btn btn-outline-info btn-sm" (click)="DersSec(ders);detay=true;" >Detay</button></td>
+                    <td><button class="btn btn-outline-warning btn-sm" (click)="DersSec(ders);ekleduzenle=true;">Düzenle</button></td>
+                    <td><button class="btn btn-outline-danger btn-sm" (click)="DersSec(ders);silme=true;">Sil</button></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>

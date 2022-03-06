@@ -1,0 +1,29 @@
+<div class="continer bg-light col-md-12">
+  <div class="col-md-12">
+      <h4 style="color: red;">Kullanıcı Arayüzü</h4><br>
+      <div class="nav nav-pills nav-fill" style="background-color: black;">
+        <li class="nav-item"><a href="/kullanıcıanasayfa" class="nav-link active">Anasayfa</a></li>
+        <li class="nav-item"><a href="/bildirim" class="nav-link">Bildirimler</a></li>
+        <li class="nav-item"><a href="/hoşgeldin" class="nav-link">Sınava Giriş</a></li>
+        <li class="nav-item"><a href="/" class="nav-link">Çıkış</a></li>
+      </div>
+    </div>
+    <br><br><br>
+  <h1 class="display-5 fw-bold">Sınava Giriş Sayfası</h1>
+  
+  <h5>Sınav Bilgileri</h5>
+  <p class="col-md-8 fs-4">Bu sınav toplam 10 soru içermektedir. Her Soru 10 Puandır. BAŞARILAR</p>
+  <h4>Sınav Açıklaması:</h4>
+  <ol>
+    <li>Her Doğru Cevap size 10 puan verir</li>
+    <li>Her Yanlış Cevap -10 puan verir</li>
+    <li style="color: red;">Sınav Bitmeden Çıkış Butonuna Basarsanız Sınav İptal Olur.</li>
+    <li>Başarılar</li>
+  </ol>
+  <h1 style="font-family: cursive;text-align:center">Herşey Gönlünce Olsun!!!!</h1>
+  <div class="name col-md-4 my-3">
+    <label >İsim Giriniz:</label>
+    <input #name type="text" class="form-control">
+  </div>
+  <button class="btn btn-primary btn-lg" routerLink="/sorular" (click)="startQuiz()" >Sınava Başla!!</button>
+</div>
